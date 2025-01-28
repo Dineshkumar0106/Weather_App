@@ -1,0 +1,153 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'poppins', sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background: #222;
+}
+.card{
+    width: 90%;
+    max-width: 470px;
+    background: linear-gradient(135deg, #00feba, #5b548a);
+    color: #fff;
+    margin: 100px auto 0;
+    border-radius: 20px;
+    padding: 40px 35px;
+    text-align: center;
+}
+.search{
+    width: 100%;
+    display: flex;
+    /* justify-content: left;
+    align-items: left; */
+    
+}
+.search input{
+    border: 0;
+    outline: 0;
+    background: #ebfffc;
+    color: #555;
+    padding: 10px 25px;
+    height: 60px;
+    border-radius: 30px;
+    flex: 1 ;
+}
+.search button{
+    border: 0;
+    outline: 0;
+    background: #ebfffc;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+.search button:hover{
+    background: #eaeaea;
+}
+.search button img{
+    width: 16px;
+}
+.weather-icon{
+    width: 170px;
+    margin-top: 30px;
+}
+.weather h1{
+    font-size: 80px;
+    font-weight: 500;
+}
+.weather h2{
+    font-size: 45px;
+    font-weight: 400;
+    margin-top: -10px;
+}
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 50p;
+}
+
+.col{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+.col img{
+    width: 40px;
+    margin-right: 10px;
+}
+.humidity, .wind{
+    font-size: 20px;
+    margin-top: -6px;
+}
+.weather{
+    display: none;
+}
+.error{
+    display: none;
+}
+.error p{
+    text-align: left;
+    font-size: 13px;
+    
+    padding-left: 20px;
+    padding-top: 5px;
+    color: blue;
+}
+
+.weather{
+    position: relative;
+    color: #fff;
+}
+
+.date, .time{
+    width: 150px;
+    height: 60px;
+    background-color: linear-gradient(90deg, #ffcc66,#ffaa80);
+    /* opacity: .4; */
+    position: absolute;
+    border-radius: 25%;
+    /* color: #fff; */
+}
+.date{
+    left: -15px;
+    top: 60px;
+    text-align: center;
+}
+.time{
+    right: -15px;
+    top: 60px;
+    text-align: center;
+}
+.weather.date, .weather.time{
+    text-align: center;
+    color: #000;
+    opacity: .3;
+    justify-content: center;
+    align-items: center;
+
+}
+.pd, .pt, .pdate, .ptime{
+    position: absolute;
+}
+.pd{
+    left: 28px;
+    top: 80px;
+    font-size: 20px;
+}
+.pt{
+    right: 45px;
+    top : 80px;
+    font-size: 20px;
+}
+.pdate{
+    left: 18px;
+    top: 107px;
+}
+.ptime{
+    right: 20px;
+    top: 107px
+}

@@ -1,0 +1,176 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- <h2>Weather Appllication</h2> -->
+    <!-- <div class="con">
+        <p>City</p>
+        <input type="text" class="city" placeholder="Enter city name"><br>
+        <button type="submit">Submit</button>
+    </div> -->
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter the city name" spellcheck="false">
+            <button><img src="search.png" alt=""></button>
+        </div>
+        <div class="error">
+            <p>Invalid city name</p>
+        </div>
+        <div class="weather">
+            <div class="date"></div>
+            <div class="time"></div>
+            <p class="pd">Date <br> <p class="pdate">1/28/2025</p></p>
+            <p class="pt">Time <BR> <p class="ptime"> 11:58:11 AM</p></p>
+
+            <img src="rain.png" class="weather-icon">
+            <h1 class="temp">22 c</h1>
+            <h2 class="city">skfd</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="humidity.png">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="wind.png">
+                    <div>
+                        <p class="wind">50km/hr</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hello -->
+</body>
+<style>
+    /* *{
+        padding: 0;
+        margin: 0;
+    }
+    h2{
+        text-align: center;
+    } */
+</style>
+<script>
+
+    const apikey="18f2926f25eb1904fa572df349ae6c21";
+    const apiurl="https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+
+    const searchbox=document.querySelector(".search input");
+    const searchbtn=document.querySelector(".search button");
+    const wethericon = document.querySelector(".weather-icon");
+    async function checkweather(city) {
+        const response = await fetch( apiurl + city + `&appid=${apikey}`);
+        if (response.status==404){
+            document.querySelector(".weather").style.display="none";
+            document.querySelector(".error").style.display="block";
+        }
+        if (response.status!=404){
+            document.querySelector(".error").style.display="none";
+        }
+        var data = await response.json();
+
+
+        document.querySelector(".city").innerHTML=data.name;
+        document.querySelector(".temp").innerHTML=data.main.temp+"°c";
+        document.querySelector(".humidity").innerHTML=data.main.humidity + "%";
+        document.querySelector(".wind").innerHTML=data.wind.speed + "km/h";
+        
+        if(data.weather[0].main=="Clouds"){
+            wethericon.src="clouds.png";
+            //return 0;
+        }
+        else if(data.weather[0].main=="Clear"){
+            wethericon.src="clear.png";
+            // return 0;
+        }
+        else if(data.weather[0].main=="Rain"){
+            wethericon.src="rain.png";
+            // return 0;
+        }
+        else if(data.weather[0].main=="Dizzzle"){
+            wethericon.src="dizzle.png";
+            // return 0;
+        }
+        else if(data.weather[0].main=="Mist"){
+            wethericon.src="mist.png";
+            // return 0;
+        }
+
+        // teperature and background color
+
+        // if(data.main.temp<0){
+        //     document.querySelector(".card").style.background = "linear-gradient(135deg, #ccffe6, #b3ffd9)";
+        // }
+        if(data.main.temp<0){
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #ccffff, #99ffff)";
+        }
+        else if(data.main.temp>=0 && data.main.temp<10){
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #cceeff, #99ccff)";
+        }
+        else if(data.main.temp>=10 && data.main.temp<20){
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #00ffcc, #66b3ff)";
+        }
+        else if(data.main.temp>=20 && data.main.temp<25){
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #00feba, #5b548a)";
+        }
+        else if(data.main.temp>=25 && data.main.temp<30){
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #ffb433, #ff9633)";
+        }
+        else if(data.main.temp>=30 && data.main.temp<38){
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #fa7000, #da490b)";
+        }
+        else{
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #ff0000, #cc3300)";
+        }
+        const now = new Date();
+        const dateTime = now.toLocaleString();
+        console.log(`Current date and time: ${dateTime}`);
+        const date = now.toLocaleDateString();
+        const time = now.toLocaleTimeString();
+        console.log(date,time);
+        document.querySelector(".pdate").innerHTML=date;
+        document.querySelector(".ptime").innerHTML=time;
+        document.querySelector(".pt").style.color="#fff";
+
+        console.log(data);
+        document.querySelector(".weather").style.display="block";
+        // if(data.main.name=="undefined") {
+        //     document.querySelector(".weather").style.display="none";
+        //     // document.querySelector(".error").style.display="block";
+        //     return 0;
+        // }
+
+    }
+    searchbtn.addEventListener("click",()=>{
+        checkweather(searchbox.value);
+    })
+    const cityTimezones = require('city-timezones');
+
+function getTimezoneByCity(cityName) {
+  const cityLookup = cityTimezones.lookupViaCity(cityName);
+  if (cityLookup && cityLookup.length > 0) {
+    return cityLookup[0].timezone; // Returns the first match's timezone
+  } else {
+    return null; // City not found
+  }
+}
+
+// Example usage:
+const cityName = 'Chicago';
+const timezone = getTimezoneByCity(cityName);
+
+if (timezone) {
+  console.log(`The timezone for ${cityName} is: ${timezone}`);
+} else {
+  console.log(`City ${cityName} not found.`);
+}
+</script>
+</html>
