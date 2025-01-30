@@ -7,11 +7,7 @@
 </head>
 <body>
     <!-- <h2>Weather Appllication</h2> -->
-    <!-- <div class="con">
-        <p>City</p>
-        <input type="text" class="city" placeholder="Enter city name"><br>
-        <button type="submit">Submit</button>
-    </div> -->
+
     <div class="card">
         <div class="search">
             <input type="text" placeholder="Enter the city name" spellcheck="false">
@@ -23,8 +19,8 @@
         <div class="weather">
             <div class="date"></div>
             <div class="time"></div>
-            <p class="pd">Date <br> <p class="pdate">1/28/2025</p></p>
-            <p class="pt">Time <BR> <p class="ptime"> 11:58:11 AM</p></p>
+            <p class="pd">Date <br> <p class="pdate"></p></p>
+            <p class="pt">Time <BR> <p class="ptime"></p></p>
 
             <img src="rain.png" class="weather-icon">
             <h1 class="temp">22 c</h1>
@@ -47,7 +43,7 @@
             </div>
         </div>
     </div>
-    <!-- Hello -->
+
 </body>
 <style>
     /* *{
@@ -104,11 +100,39 @@
             // return 0;
         }
 
+        // latitude and longitude
+
+        const lat = data.coord.lat;
+        const lon = data.coord.lon;
+        console.log(lat,lon);
+
+        // TimeZone
+
+        const tzurl = "https://api.timezonedb.com/v2.1/get-time-zone?key=F3GADC50C6TF&format=json&by=position&";
+
+        async function checktz(lat,lon){
+            const tzfurl = await fetch(tzurl + `lat=${lat}&lng=${lon}`);
+        
+            var tzdata = await tzfurl.json();
+            const zname = tzdata.zoneName;
+            console.log(zname);
+            var ctime = [];
+            var cdate = [];
+            for (let i = 0 ; i < 10 ; i++){
+                cdate.push(tzdata.formatted[i]);
+            }
+            for (let i = 11 ; i < 20 ; i++){
+                ctime.push(tzdata.formatted[i]);
+            }
+
+            document.querySelector(".pdate").innerHTML=cdate.join("");
+            document.querySelector(".ptime").innerHTML=ctime.join("");
+            console.log("time and date is "+ ctime.join(""),cdate.join(""));
+        }
+        checktz(lat,lon);
+
         // teperature and background color
 
-        // if(data.main.temp<0){
-        //     document.querySelector(".card").style.background = "linear-gradient(135deg, #ccffe6, #b3ffd9)";
-        // }
         if(data.main.temp<0){
             document.querySelector(".card").style.background = "linear-gradient(135deg, #ccffff, #99ffff)";
         }
@@ -135,42 +159,18 @@
         console.log(`Current date and time: ${dateTime}`);
         const date = now.toLocaleDateString();
         const time = now.toLocaleTimeString();
-        console.log(date,time);
         document.querySelector(".pdate").innerHTML=date;
         document.querySelector(".ptime").innerHTML=time;
         document.querySelector(".pt").style.color="#fff";
 
         console.log(data);
         document.querySelector(".weather").style.display="block";
-        // if(data.main.name=="undefined") {
-        //     document.querySelector(".weather").style.display="none";
-        //     // document.querySelector(".error").style.display="block";
-        //     return 0;
-        // }
+
 
     }
     searchbtn.addEventListener("click",()=>{
         checkweather(searchbox.value);
     })
-    const cityTimezones = require('city-timezones');
 
-function getTimezoneByCity(cityName) {
-  const cityLookup = cityTimezones.lookupViaCity(cityName);
-  if (cityLookup && cityLookup.length > 0) {
-    return cityLookup[0].timezone; // Returns the first match's timezone
-  } else {
-    return null; // City not found
-  }
-}
-
-// Example usage:
-const cityName = 'Chicago';
-const timezone = getTimezoneByCity(cityName);
-
-if (timezone) {
-  console.log(`The timezone for ${cityName} is: ${timezone}`);
-} else {
-  console.log(`City ${cityName} not found.`);
-}
 </script>
 </html>
