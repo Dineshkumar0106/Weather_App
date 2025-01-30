@@ -56,7 +56,7 @@
 </style>
 <script>
 
-    const apikey="18f2926f25eb1904fa572df349ae6c21";
+    const apikey="Your_api_key";
     const apiurl="https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
 
     const searchbox=document.querySelector(".search input");
@@ -100,22 +100,21 @@
             // return 0;
         }
 
-        // latitude and longitude
-
+        // latitude and longitude 
         const lat = data.coord.lat;
         const lon = data.coord.lon;
-        console.log(lat,lon);
+        // console.log(lat,lon);
 
         // TimeZone
 
-        const tzurl = "https://api.timezonedb.com/v2.1/get-time-zone?key=F3GADC50C6TF&format=json&by=position&";
+        const tzurl = "https://api.timezonedb.com/v2.1/get-time-zone?key=Your_api_key&format=json&by=position&";
 
         async function checktz(lat,lon){
             const tzfurl = await fetch(tzurl + `lat=${lat}&lng=${lon}`);
         
             var tzdata = await tzfurl.json();
             const zname = tzdata.zoneName;
-            console.log(zname);
+            // console.log(zname);
             var ctime = [];
             var cdate = [];
             for (let i = 0 ; i < 10 ; i++){
@@ -127,7 +126,7 @@
 
             document.querySelector(".pdate").innerHTML=cdate.join("");
             document.querySelector(".ptime").innerHTML=ctime.join("");
-            console.log("time and date is "+ ctime.join(""),cdate.join(""));
+            // console.log("time and date is "+ ctime.join(""),cdate.join(""));
         }
         checktz(lat,lon);
 
@@ -154,16 +153,16 @@
         else{
             document.querySelector(".card").style.background = "linear-gradient(135deg, #ff0000, #cc3300)";
         }
-        const now = new Date();
-        const dateTime = now.toLocaleString();
-        console.log(`Current date and time: ${dateTime}`);
-        const date = now.toLocaleDateString();
-        const time = now.toLocaleTimeString();
-        document.querySelector(".pdate").innerHTML=date;
-        document.querySelector(".ptime").innerHTML=time;
+        // const now = new Date();
+        // const dateTime = now.toLocaleString();
+        // console.log(`Current date and time: ${dateTime}`);
+        // const date = now.toLocaleDateString();
+        // const time = now.toLocaleTimeString();
+        // document.querySelector(".pdate").innerHTML=date;
+        // document.querySelector(".ptime").innerHTML=time;
         document.querySelector(".pt").style.color="#fff";
 
-        console.log(data);
+        // console.log(data);
         document.querySelector(".weather").style.display="block";
 
 
