@@ -100,7 +100,8 @@
             // return 0;
         }
 
-        // latitude and longitude 
+        // latitude and longitude
+
         const lat = data.coord.lat;
         const lon = data.coord.lon;
         // console.log(lat,lon);
@@ -133,10 +134,10 @@
         // teperature and background color
 
         if(data.main.temp<0){
-            document.querySelector(".card").style.background = "linear-gradient(135deg, #ccffff, #99ffff)";
+            document.querySelector(".card").style.background = "linear-gradient(135deg, lightgreen, #99ffff)";
         }
         else if(data.main.temp>=0 && data.main.temp<10){
-            document.querySelector(".card").style.background = "linear-gradient(135deg, #cceeff, #99ccff)";
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #99ccff,green )";
         }
         else if(data.main.temp>=10 && data.main.temp<20){
             document.querySelector(".card").style.background = "linear-gradient(135deg, #00ffcc, #66b3ff)";
